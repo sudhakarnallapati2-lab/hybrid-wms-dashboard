@@ -8,6 +8,8 @@ DATA_FILE="out/hybrid_report.json"
 HISTORY_FILE="out/history.csv"
 PASSWORD="admin123"
 
+
+
 if "auth" not in st.session_state:
     st.session_state.auth=False
 
@@ -22,6 +24,11 @@ if not st.session_state.auth:
     st.stop()
 
 st.title("🚚 Hybrid WMS Dashboard")
+
+if not os.path.exists(DATA_FILE):
+    st.write("⏳ First-time setup... generating initial data.")
+    import run_hybrid_full
+    run_hybrid_full.main()
 
 if not os.path.exists(DATA_FILE):
     st.warning("Run run_hybrid_full.py first.")
